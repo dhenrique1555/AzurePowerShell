@@ -32,9 +32,13 @@ Add-AzDnsRecordConfig -Recordset $recordset -Value $value
 $RecordSetUpdate = Set-AzDnsRecordSet -Recordset $Recordset
 
 }
+
+# Verificar refresh na verificação por linha de comando
 #----------------------------------------------
 
 #Add CNAME CustomDomainVerification
+$rg = read-host "Insert ResourceGroupName"
+$zone = read-host "Insert Zone Name"
 $fqdn= read-host "Insert custom domain"
 $webappname= read-host "Insert WebApp Name"
 Write-Host "Configure a CNAME record that maps $fqdn to $webappname.azurewebsites.net"
@@ -43,16 +47,18 @@ New-AzDnsRecordSet -Name $namecname -RecordType CNAME -ZoneName $zone -ResourceG
 #----------------------------------------------
 
 # Add a custom domain name to the web app. 
+$rg = read-host "Insert ResourceGroupName"
 Set-AzWebApp -Name $webappname -ResourceGroupName $rg `
 -HostNames @($fqdn,"$webappname.azurewebsites.net") -HttpsOnly $true
 
 #-----------------------------------------------------------------------------
 
 # Upload and bind the SSL certificate to the web app.
+$rg = read-host "Insert ResourceGroupName"
 $pfxPath= read-host "Insert PFX Certificate Path"
 $pfxPassword= read-host "Insert PFX Certificate Password"
 $rg = read-host "Insert ResourceGroup Name"
-New-AzWebAppSSLBinding -WebAppName $webappname -ResourceGroupName $webappname -Name $fqdn `
+New-AzWebAppSSLBinding -WebAppName $webappname -ResourceGroupName $rg -Name $fqdn `
 -CertificateFilePath $pfxPath -CertificatePassword $pfxPassword -SslState SniEnabled 
 
 #--------------------------------------------------
