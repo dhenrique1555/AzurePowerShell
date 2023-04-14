@@ -2,7 +2,7 @@ $rgName = read-host "Insert Resource Group Where the Data disk will be created"
 $vmName = read-host "Insert the VM where disk will be attached"
 $location = read-host "Insert the region where disk will be created" #Use Get-azlocation to get all available Azure Regions for selected Subscription
 $storageType = read-host "Insert the disk SKU" #Available values are Standard_LRS, Premium_LRS, StandardSSD_LRS, and UltraSSD_LRS, Premium_ZRS and StandardSSD_ZRS.
-$disksize = read-host "Insert Disk Size"
+$disksize = read-host "Insert Disk Size in GB"
 $dataDiskName = $vmName + '_datadiskname'
 
 #Use the Below Script to get LUNs in use for the VM
