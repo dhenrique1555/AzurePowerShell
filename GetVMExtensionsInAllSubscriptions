@@ -1,0 +1,9 @@
+$vmextensions = @()
+$subs = get-azsubscription
+foreach($sub in $subs){
+set-azcontext $sub.id
+$vms = get-azvm
+foreach($vm in $vms){
+$vmextensions += get-azvmextension -vmname $vm.name -resourcegroupname $vm.resourcegroupname | select @{n="Subscription";e={$sub.Name}},vmname,resourcegroupname,location,publisher,name,extensiontype,provisioningstate
+}
+}
