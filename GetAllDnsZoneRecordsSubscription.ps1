@@ -1,6 +1,6 @@
 $result = @()
 $subname = read-host "Enter Subscription Name"
-$Subscriptions = Get-AzSubscription -subscriptionname $zone
+$Subscriptions = Get-AzSubscription -subscriptionname $subname
  
 foreach($sub in $subscriptions){
 $zones = @()
