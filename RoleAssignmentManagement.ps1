@@ -73,3 +73,10 @@ $userroles += Get-AzRoleAssignment -signinname $user | select signinname,roledef
 $userroles
 $warningpreference = "Continue"
 
+#Mirror User role Assignments in all subscriptions - Use it together with last script
+$user2 = read-host "Insert user who will receive access"
+foreach($role in $userroles){
+New-azroleassignment -signinname $user2 -scope $role.scope -roledefinitionname $role.roledefinitionname
+}
+
+
