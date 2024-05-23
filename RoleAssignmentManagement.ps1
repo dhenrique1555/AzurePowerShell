@@ -73,6 +73,10 @@ $userroles += Get-AzRoleAssignment -signinname $user | select signinname,roledef
 $userroles
 $warningpreference = "Continue"
 
+#Remove Permissions from last script
+foreach($role in $userroles){
+Remove-AzRoleAssignment -SignInName $user -Scope $role.scope -RoleDefinitionName $role.roledefinitionname}
+
 #Mirror User role Assignments in all subscriptions - Use it together with last script
 $user2 = read-host "Insert user who will receive access"
 foreach($role in $userroles){
